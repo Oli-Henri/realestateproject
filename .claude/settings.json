@@ -17,7 +17,8 @@
       "Bash(npm run:*)",
       "Bash(python3 -m pytest tests/ -q)",
       "Bash(claude remote-control:*)",
-      "Read(//Users/ovhenritemp/Documents/RealEstateProject/**)"
+      "Read(//Users/ovhenritemp/Documents/RealEstateProject/**)",
+      "Bash(git config:*)"
     ],
     "additionalDirectories": [
       "/Users/ovhenritemp/.claude/projects/-Users-ovhenritemp-Documents-RealEstateProject-realestateproject/memory",
