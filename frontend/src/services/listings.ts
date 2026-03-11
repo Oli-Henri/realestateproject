@@ -1,6 +1,6 @@
 const API_BASE = 'http://127.0.0.1:8000/api/v1';
 
-export type PropertyType = 'plex' | 'single_family' | 'condo' | 'commercial';
+export type PropertyType = 'residential_lot' | 'commercial_lot' | 'agricultural' | 'industrial';
 
 export interface Listing {
   listing_id: string;
@@ -8,9 +8,8 @@ export interface Listing {
   city: string;
   price: number;
   property_type: PropertyType;
-  bedrooms: number;
-  bathrooms: number;
-  sqft: number;
+  lot_size_acres: number;
+  zoning: string;
   description: string;
   listed_at: string;
 }

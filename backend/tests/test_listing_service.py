@@ -14,14 +14,13 @@ def make_listing(**overrides) -> Listing:
 
     defaults = dict(
         listing_id="L001",
-        address="123 Rue Saint-Denis",
+        address="1450 Rang Saint-François",
         city="Montreal",
-        price=Decimal("450000"),
-        property_type=PropertyType.PLEX,
-        bedrooms=6,
-        bathrooms=3,
-        sqft=2400,
-        description="Triplex in Plateau.",
+        price=Decimal("320000"),
+        property_type=PropertyType.RESIDENTIAL_LOT,
+        lot_size_acres=0.45,
+        zoning="Residential",
+        description="Corner lot, fully serviced.",
         listed_at=datetime(2026, 1, 10, tzinfo=timezone.utc),
     )
     defaults.update(overrides)

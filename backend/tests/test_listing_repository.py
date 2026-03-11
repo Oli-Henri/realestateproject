@@ -38,9 +38,9 @@ class TestGetListings:
         assert all(listing.price <= max_price for listing in listings)
 
     def test_filters_by_property_type(self, repository: ListingRepository) -> None:
-        filters = ListingFilters(property_type=PropertyType.PLEX)
+        filters = ListingFilters(property_type=PropertyType.RESIDENTIAL_LOT)
         listings, _ = repository.get_listings(filters)
-        assert all(listing.property_type == PropertyType.PLEX for listing in listings)
+        assert all(listing.property_type == PropertyType.RESIDENTIAL_LOT for listing in listings)
 
     def test_paginates_results(self, repository: ListingRepository) -> None:
         page1_filters = ListingFilters(page=1, page_size=2)

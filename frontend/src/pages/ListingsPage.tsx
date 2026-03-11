@@ -4,10 +4,10 @@ import { useListings } from '../hooks/useListings';
 import { ListingCard } from '../components/ListingCard';
 
 const PROPERTY_TYPES: { value: PropertyType; label: string }[] = [
-  { value: 'plex', label: 'Plex' },
-  { value: 'single_family', label: 'Single Family' },
-  { value: 'condo', label: 'Condo' },
-  { value: 'commercial', label: 'Commercial' },
+  { value: 'residential_lot', label: 'Residential Lot' },
+  { value: 'commercial_lot', label: 'Commercial Lot' },
+  { value: 'agricultural', label: 'Agricultural' },
+  { value: 'industrial', label: 'Industrial' },
 ];
 
 export function ListingsPage() {
@@ -34,7 +34,7 @@ export function ListingsPage() {
 
   return (
     <div style={styles.page}>
-      <h1 style={styles.title}>Quebec Investment Properties</h1>
+      <h1 style={styles.title}>Quebec Land & Lot Listings</h1>
 
       <form onSubmit={handleSearch} style={styles.form}>
         <input

@@ -9,10 +9,10 @@ from pydantic import BaseModel, Field
 
 
 class PropertyType(str, Enum):
-    PLEX = "plex"
-    SINGLE_FAMILY = "single_family"
-    CONDO = "condo"
-    COMMERCIAL = "commercial"
+    RESIDENTIAL_LOT = "residential_lot"
+    COMMERCIAL_LOT = "commercial_lot"
+    AGRICULTURAL = "agricultural"
+    INDUSTRIAL = "industrial"
 
 
 class Listing(BaseModel):
@@ -21,9 +21,8 @@ class Listing(BaseModel):
     city: str
     price: Decimal
     property_type: PropertyType
-    bedrooms: int
-    bathrooms: int
-    sqft: int
+    lot_size_acres: float
+    zoning: str
     description: str
     listed_at: datetime
 

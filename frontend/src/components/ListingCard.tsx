@@ -1,10 +1,10 @@
 import type { Listing } from '../services/listings';
 
 const PROPERTY_LABEL: Record<string, string> = {
-  plex: 'Plex',
-  single_family: 'Single Family',
-  condo: 'Condo',
-  commercial: 'Commercial',
+  residential_lot: 'Residential Lot',
+  commercial_lot: 'Commercial Lot',
+  agricultural: 'Agricultural',
+  industrial: 'Industrial',
 };
 
 interface Props {
@@ -27,9 +27,8 @@ export function ListingCard({ listing }: Props) {
       <div style={styles.address}>{listing.address}</div>
       <div style={styles.city}>{listing.city}</div>
       <div style={styles.specs}>
-        <span>{listing.bedrooms} bd</span>
-        <span>{listing.bathrooms} ba</span>
-        <span>{listing.sqft.toLocaleString()} sqft</span>
+        <span>{listing.lot_size_acres} acres</span>
+        <span>Zoning: {listing.zoning}</span>
       </div>
       <div style={styles.description}>{listing.description}</div>
     </div>

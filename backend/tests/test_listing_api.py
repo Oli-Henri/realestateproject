@@ -68,9 +68,9 @@ class TestGetListings:
         self, client: TestClient, mock_service: MagicMock
     ) -> None:
         mock_service.search_listings.return_value = make_response()
-        client.get("/api/v1/listings?property_type=plex")
+        client.get("/api/v1/listings?property_type=residential_lot")
         called_filters: ListingFilters = mock_service.search_listings.call_args[0][0]
-        assert called_filters.property_type == PropertyType.PLEX
+        assert called_filters.property_type == PropertyType.RESIDENTIAL_LOT
 
     def test_passes_pagination_params_to_service(
         self, client: TestClient, mock_service: MagicMock
