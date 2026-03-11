@@ -1,40 +1,45 @@
 import { useState } from 'react';
-import type { ListingFilters, PropertyType } from '../services/listings';
+import type { ListingFilters } from '../services/listings';
 import { useListings } from '../hooks/useListings';
 import { ListingCard } from '../components/ListingCard';
 
-const PROPERTY_TYPES: { value: PropertyType; label: string }[] = [
-  { value: 'residential_lot', label: 'Residential Lot' },
-  { value: 'commercial_lot', label: 'Commercial Lot' },
-  { value: 'agricultural', label: 'Agricultural' },
-  { value: 'industrial', label: 'Industrial' },
-];
+const DEFAULT_MAX_BUDGET = 250000;
 
 export function ListingsPage() {
-  const [filters, setFilters] = useState<ListingFilters>({ page: 1, page_size: 20 });
-  const [draft, setDraft] = useState({ city: '', min_price: '', max_price: '', property_type: '' });
+  const [filters, setFilters] = useState<ListingFilters>({
+    property_type: 'residential_lot',
+    max_price: DEFAULT_MAX_BUDGET,
+    page: 1,
+    page_size: 20,
+  });
+  const [draft, setDraft] = useState({ city: '', max_price: String(DEFAULT_MAX_BUDGET) });
   const { listings, total, loading, error } = useListings(filters);
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault();
     setFilters({
+      property_type: 'residential_lot',
       city: draft.city || undefined,
-      min_price: draft.min_price ? Number(draft.min_price) : undefined,
       max_price: draft.max_price ? Number(draft.max_price) : undefined,
-      property_type: (draft.property_type as PropertyType) || undefined,
       page: 1,
       page_size: 20,
     });
   }
 
   function handleReset() {
-    setDraft({ city: '', min_price: '', max_price: '', property_type: '' });
-    setFilters({ page: 1, page_size: 20 });
+    setDraft({ city: '', max_price: String(DEFAULT_MAX_BUDGET) });
+    setFilters({
+      property_type: 'residential_lot',
+      max_price: DEFAULT_MAX_BUDGET,
+      page: 1,
+      page_size: 20,
+    });
   }
 
   return (
     <div style={styles.page}>
-      <h1 style={styles.title}>Quebec Land & Lot Listings</h1>
+      <h1 style={styles.title}>Quebec Residential Lots</h1>
+      <p style={styles.subtitle}>Residential lots only — set your budget to filter results.</p>
 
       <form onSubmit={handleSearch} style={styles.form}>
         <input
@@ -43,30 +48,16 @@ export function ListingsPage() {
           value={draft.city}
           onChange={e => setDraft(d => ({ ...d, city: e.target.value }))}
         />
-        <input
-          style={styles.input}
-          type="number"
-          placeholder="Min price (CAD)"
-          value={draft.min_price}
-          onChange={e => setDraft(d => ({ ...d, min_price: e.target.value }))}
-        />
-        <input
-          style={styles.input}
-          type="number"
-          placeholder="Max price (CAD)"
-          value={draft.max_price}
-          onChange={e => setDraft(d => ({ ...d, max_price: e.target.value }))}
-        />
-        <select
-          style={styles.input}
-          value={draft.property_type}
-          onChange={e => setDraft(d => ({ ...d, property_type: e.target.value }))}
-        >
-          <option value="">All types</option>
-          {PROPERTY_TYPES.map(pt => (
-            <option key={pt.value} value={pt.value}>{pt.label}</option>
-          ))}
-        </select>
+        <div style={styles.budgetWrapper}>
+          <label style={styles.label}>Max budget (CAD)</label>
+          <input
+            style={styles.input}
+            type="number"
+            placeholder="250000"
+            value={draft.max_price}
+            onChange={e => setDraft(d => ({ ...d, max_price: e.target.value }))}
+          />
+        </div>
         <button type="submit" style={styles.btnPrimary}>Search</button>
         <button type="button" style={styles.btnSecondary} onClick={handleReset}>Reset</button>
       </form>
@@ -76,14 +67,14 @@ export function ListingsPage() {
 
       {!loading && !error && (
         <>
-          <p style={styles.count}>{total} listing{total !== 1 ? 's' : ''} found</p>
+          <p style={styles.count}>{total} lot{total !== 1 ? 's' : ''} found</p>
           <div style={styles.grid}>
             {listings.map(listing => (
               <ListingCard key={listing.listing_id} listing={listing} />
             ))}
           </div>
           {listings.length === 0 && (
-            <p style={styles.status}>No listings match your filters.</p>
+            <p style={styles.status}>No lots match your filters.</p>
           )}
         </>
       )}
@@ -101,14 +92,30 @@ const styles: Record<string, React.CSSProperties> = {
   title: {
     fontSize: 28,
     fontWeight: 700,
-    marginBottom: 24,
+    marginBottom: 6,
     color: '#1a1a2e',
+  },
+  subtitle: {
+    fontSize: 14,
+    color: '#6c757d',
+    marginBottom: 24,
   },
   form: {
     display: 'flex',
     flexWrap: 'wrap',
     gap: 10,
+    alignItems: 'flex-end',
     marginBottom: 24,
+  },
+  budgetWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 4,
+  },
+  label: {
+    fontSize: 12,
+    color: '#6c757d',
+    fontWeight: 500,
   },
   input: {
     padding: '8px 12px',

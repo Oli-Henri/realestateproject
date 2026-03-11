@@ -53,7 +53,7 @@ class TestGetListings:
         assert page1_ids.isdisjoint(page2_ids)
 
     def test_total_reflects_filtered_count_not_page_count(self, repository: ListingRepository) -> None:
-        filters = ListingFilters(city="Montreal", page=1, page_size=1)
+        filters = ListingFilters(city="Quebec City", page=1, page_size=1)
         listings, total = repository.get_listings(filters)
         assert len(listings) == 1
         assert total > 1
