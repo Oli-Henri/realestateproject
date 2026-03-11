@@ -4,6 +4,7 @@ from decimal import Decimal
 from typing import Optional
 
 from fastapi import APIRouter, Depends, FastAPI, Query
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.models.listing import ListingFilters, ListingsResponse, PropertyType
 from app.repositories.listing_repository import ListingRepository
@@ -42,6 +43,12 @@ def create_app(listing_service: Optional[ListingService] = None) -> FastAPI:
         listing_service = ListingService(repository=ListingRepository())
 
     app = FastAPI(title="RealEstate Investment Assistant", version="0.1.0")
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["http://localhost:5173"],
+        allow_methods=["GET"],
+        allow_headers=["*"],
+    )
     app.include_router(_build_listing_router(listing_service))
     return app
 
