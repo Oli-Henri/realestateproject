@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -m pytest tests/test_listing_api.py -q)",
+      "Bash(python3 -m pytest tests/ -v)",
+      "Read(//Users/ovhenritemp/.claude/projects/-Users-ovhenritemp-Documents-RealEstateProject-realestateproject/**)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(python3 -c \"import uvicorn; print\\(''uvicorn'', uvicorn.__version__\\)\")",
+      "Bash(python3 -m uvicorn app.main:app --reload)",
+      "Bash(npm --version)",
+      "Bash(brew list:*)",
+      "Bash(brew --version)",
+      "Bash(brew install:*)",
+      "Bash(npm create:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "Bash(python3 -m pytest tests/ -q)",
+      "Bash(claude remote-control:*)",
+      "Read(//Users/ovhenritemp/Documents/RealEstateProject/**)"
+    ],
+    "additionalDirectories": [
+      "/Users/ovhenritemp/.claude/projects/-Users-ovhenritemp-Documents-RealEstateProject-realestateproject/memory",
+      "/Users/ovhenritemp/Documents/RealEstateProject/realestateproject/frontend/src"
+    ]
+  }
+}
